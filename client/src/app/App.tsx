@@ -1,11 +1,13 @@
 import React from 'react';
 
 function App() {
-    const test: string = "hi";
-
     return (
-        <div className="App">
-            {test}
+        <div className="wrapper">
+            <div className="header blue lighten-1">
+                <span className="waves-effect waves-light btn blue lighten-2">
+                    Добавить сообщение
+                </span>
+            </div>
         </div>
     );
 }

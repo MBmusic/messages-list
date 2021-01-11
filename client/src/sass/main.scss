@@ -1,3 +1,22 @@
+@mixin sizes($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin flex($flex-direction, $justify-content, $align-items, $flex-wrap: nowrap) {
+    display: flex;
+    flex-direction: $flex-direction;
+    justify-content: $justify-content;
+    align-items: $align-items;
+    flex-wrap: $flex-wrap;
+}
+
 body {
-    background-color: black;
+    min-width: 600px;
+}
+
+.header {
+    @include sizes(100%, 60px);
+    @include flex(row, flex-end, center);
+    padding: 0 20px;
 }
