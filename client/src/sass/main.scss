@@ -13,10 +13,21 @@
 
 body {
     min-width: 600px;
+    background-color: #fafafa;
 }
 
 .header {
     @include sizes(100%, 60px);
     @include flex(row, flex-end, center);
     padding: 0 20px;
+}
+
+.content {
+    width: 100%;
+    padding: 40px 20px;
+
+    .content__center {
+        max-width: 600px;
+        margin: 0 auto;
+    }
 }
