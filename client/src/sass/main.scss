@@ -11,9 +11,14 @@
     flex-wrap: $flex-wrap;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     min-width: 600px;
     background-color: #fafafa;
+    color: #616161;
 }
 
 .header {
@@ -24,10 +29,87 @@ body {
 
 .content {
     width: 100%;
-    padding: 40px 20px;
+    padding: 50px 20px;
 
     .content__center {
         max-width: 600px;
         margin: 0 auto;
+    }
+}
+
+.message {
+    .message__content {
+        padding: 10px 15px;
+        @include sizes(100%, auto);
+        @include flex(row, flex-start, flex-start);
+        border-radius: 8px;
+
+        .message__avatar {
+            @include sizes(60px, 60px);
+            background: url(../images/avatar.png) center no-repeat;
+            background-size: contain;
+            border-radius: 50%;
+            overflow: hidden;
+            flex: 0 0 60px;
+            margin-right: 14px;
+        }
+
+        .message__info {
+            .message__text {
+                margin-bottom: 15px;
+                font-size: 14px;
+            }
+
+            .messate__date {
+                font-size: 12px;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.popup {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    @include sizes(100%, 100%);
+    @include flex(column, center, center);
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    animation: popup 0.6s ease;
+
+    .popup__modal {
+        padding: 15px 20px;
+        border-radius: 8px;
+        background-color: #fff;
+        opacity: 0;
+        animation: popup-in 0.6s ease-out 0.1s;
+        animation-fill-mode: forwards;
+
+        &.popup__modal--500 {
+            width: 500px; 
+        }
+    }
+}
+
+@keyframes popup {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes popup-in {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
     }
 }
