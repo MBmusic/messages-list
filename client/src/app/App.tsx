@@ -1,18 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from "./components/Header";
 import Message from "./components/Message";
 import Popup from "./custom/Popup";
+import PopupAddMessage from "./components/Popups/PopupAddMessage";
 
-function App() {
+function App(): JSX.Element {
+    const [isPopupMessage, setIsPopupMessage] = useState<boolean>(false);
+
+    const toggleAddMessage = (boolVal: boolean): void => {
+        setIsPopupMessage(boolVal);
+    }
+
     return (
         <div className="wrapper">
-            <Header />
+            <Header 
+                togglePopup = {toggleAddMessage}
+            />
 
             <Popup 
-                show={true}
+                show={isPopupMessage}
                 className="popup__modal--500"
             >
-                <div>123</div>
+                <PopupAddMessage 
+                    togglePopup = {toggleAddMessage}
+                />
             </Popup>
 
             <div className="content">

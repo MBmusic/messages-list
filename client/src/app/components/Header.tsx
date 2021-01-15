@@ -1,9 +1,13 @@
 import React from 'react';
 
-function Header() {
+type Props = {
+    togglePopup: any
+}
+
+function Header({ togglePopup }: Props): JSX.Element {
     return (
         <div className="header blue darken-1">
-            <span className="waves-effect waves-light btn blue lighten-2">
+            <span onClick={() => togglePopup(true)} className="waves-effect waves-light btn blue lighten-2">
                 Добавить сообщение
             </span>
         </div>

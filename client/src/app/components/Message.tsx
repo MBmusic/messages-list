@@ -1,13 +1,18 @@
 import React from 'react';
 
-function Message() {
+function Message(): JSX.Element {
     return (
         <div className="message">
             <div className="message__content blue lighten-5">
                 <div className="message__avatar"></div>
                 <div className="message__info">
                     <div className="message__text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate vitae delectus accusamus optio! Temporibus provident cupiditate odio ut magni officiis beatae, qui doloremque eveniet ullam sit, minus quae ipsam unde!
+                        <div className="message__title">
+                            Name
+                        </div>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate vitae delectus accusamus optio! Temporibus provident cupiditate odio ut magni officiis beatae, qui doloremque eveniet ullam sit, minus quae ipsam unde!
+                        </p>
                     </div>
 
                     <div className="messate__date">

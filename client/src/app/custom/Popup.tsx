@@ -1,12 +1,12 @@
 import React from "react";
 
-interface Props {
+type Props = {
     children?: JSX.Element,
     show: boolean,
     className?: string
 }
 
-const Popup = ({ children, show = true, className = "" }: Props) => {
+const Popup = ({ children, show = true, className = "" }: Props): JSX.Element => {
     return (
         <>
             {

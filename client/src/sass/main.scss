@@ -58,6 +58,16 @@ body {
             .message__text {
                 margin-bottom: 15px;
                 font-size: 14px;
+
+                .message__title {
+                    font-weight: 700;
+                    margin-bottom: 5px;
+                    color: #2196f3;
+                }
+
+                p {
+                    margin: 0 0 15px;
+                }
             }
 
             .messate__date {
@@ -111,5 +121,49 @@ body {
     100% {
         opacity: 1;
         transform: translateY(0px);
+    }
+}
+
+.title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.flex-btn {
+    @include flex(row, center, center);
+}
+
+.btn {
+    &.btn--130 {
+        width: 130px;
+    }
+}
+
+.label {
+    margin-bottom: 20px;
+}
+
+.margin-right_20 {
+    margin-right: 20px;
+}
+
+.margin-bottom_30 {
+    margin-bottom: 30px;
+}
+
+input {
+    &:focus {
+        border-bottom: 1px solid #1565c0 !important;
+        box-shadow: 0 1px 0 0 #1565c0 !important;
+
+        & + label {
+            color: #1565c0 !important;
+
+            & + .input-field__length {
+                color: #1565c0;
+            }
+        }
     }
 }
