@@ -1,8 +1,8 @@
 import React from "react";
 
 type Props = {
-    children?: JSX.Element,
-    show: boolean,
+    children: JSX.Element,
+    show?: boolean,
     className?: string
 }
 
