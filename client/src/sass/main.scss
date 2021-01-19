@@ -38,11 +38,16 @@ body {
 }
 
 .message {
+    @include flex(column, flex-start, flex-end);
+
     .message__content {
         padding: 10px 15px;
         @include sizes(100%, auto);
         @include flex(row, flex-start, flex-start);
         border-radius: 8px;
+        margin-bottom: 15px;
+        background: #e3f2fd;
+        position: relative;
 
         .message__avatar {
             @include sizes(60px, 60px);
@@ -75,7 +80,27 @@ body {
                 font-weight: 700;
             }
         }
+
+        .message__line {
+            position: absolute;
+            @include sizes(90px, 6px);
+            border-radius: 10px;
+            background: #e8eaf6;
+            top: 50%;
+            margin-top: -3px;
+            left: -100px;
+        }
     }
+
+    &.message--comments {
+        .message__content {
+            background: #e8eaf6;
+        }
+    }
+}
+
+.comments {
+    max-width: 500px;
 }
 
 .popup {
