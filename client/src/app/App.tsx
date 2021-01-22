@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import Header from "./components/Header";
-import Message from "./components/Message";
+import Messages from "./components/Messages";
 import Popup from "./custom/Popup";
 import PopupAddMessage from "./components/Popups/PopupAddMessage";
+import API from "./RequestApi";
 
 function App(): JSX.Element {
     const [isPopupMessage, setIsPopupMessage] = useState<boolean>(false);
+    const [messages, setMessages] = useState<Array<string>>([]);
 
     const toggleAddMessage = (boolVal: boolean): void => {
         setIsPopupMessage(boolVal);
+    }
+
+    const getAllMessages = async () => {
+       const responce = await API.get("/messages");
+       setMessages(responce.data);
     }
 
     return (
@@ -28,7 +35,9 @@ function App(): JSX.Element {
 
             <div className="content">
                 <div className="content__center">
-                    <Message />
+                    <Messages 
+                        messages={messages}
+                    />
                 </div>
             </div>
         </div>
