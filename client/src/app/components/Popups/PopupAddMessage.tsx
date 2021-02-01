@@ -1,24 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
+import { isEmpty } from "lodash";
+import { InputValidator } from "../../helpers/InputValidator";
+import API from "../../RequestApi";
 
 type Props = {
-    togglePopup: any
+    togglePopup: any,
+    messages: Array<string>,
+    setMessages: any
 }
 
-function PopupAddMessage({ togglePopup }: Props): JSX.Element {
+type Message =  {
+    name: string,
+    message: string
+}
+
+function PopupAddMessage({ togglePopup, messages, setMessages }: Props): JSX.Element {
+    const [message, setMessage] = useState<Message>({
+        name: "",
+        message: ""
+    });
+    const maxSize = 50;
+
+    const addMessage = (e: React.FormEvent): void => {
+        e.preventDefault();
+
+        API.post("/messages", {
+            name: message.name,
+            message: message.message
+        }).then(res => setMessages((arr: any) => [...arr, res.data]));
+
+        togglePopup(false);
+    }
+
+    const handleChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const targ = e.target;
+
+        setMessage(prevValue => {
+            return {
+                ...message,
+                [targ.id]: InputValidator(prevValue[targ.id as keyof Message], targ.value, maxSize)
+            };
+        });
+    }
+
+    const toggleActiveBtn = (): any => {
+        return Object.values(message).filter(item => isEmpty(item));
+    }
+
     return (
         <>
             <div className="title">
                 Добавить сообщение
-            </div>    
+            </div>
 
-            <form action="">
+            <form onSubmit={ addMessage }>
                 <div className="label">
                     <div className="input-field col s6">
                         <input 
                             id="name" 
                             type="text"
+                            value={message.name}
+                            onChange={(e) => handleChangeField(e)}
                         />
                         <label htmlFor="name">Имя</label>
+                        <span className="label__max">{message.name.length}/{maxSize}</span>
                     </div>
                 </div>
 
@@ -27,15 +72,18 @@ function PopupAddMessage({ togglePopup }: Props): JSX.Element {
                         <input 
                             id="message" 
                             type="text"
+                            value={message.message}
+                            onChange={(e) => handleChangeField(e)}
                         />
                         <label htmlFor="message">Текст сообщения</label>
+                        <span className="label__max">{message.message.length}/{maxSize}</span>
                     </div>
                 </div>
 
                 <div className="flex-btn">
-                    <span className="waves-effect waves-light btn blue darken-2 btn--130 margin-right_20">
+                    <button className={`waves-effect waves-light btn blue darken-2 btn--130 margin-right_20 ${isEmpty(toggleActiveBtn()) ? "" : "disabled"}`}>
                         Добавить
-                    </span>
+                    </button>
 
                     <span onClick={() => togglePopup(false)} className="waves-effect waves-light btn blue darken-2 btn--130">
                         Отменить

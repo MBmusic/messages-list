@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from "./components/Header";
 import Messages from "./components/Messages";
 import Popup from "./custom/Popup";
@@ -8,6 +8,10 @@ import API from "./RequestApi";
 function App(): JSX.Element {
     const [isPopupMessage, setIsPopupMessage] = useState<boolean>(false);
     const [messages, setMessages] = useState<Array<string>>([]);
+
+    useEffect(() => {
+        getAllMessages();
+    }, [])
 
     const toggleAddMessage = (boolVal: boolean): void => {
         setIsPopupMessage(boolVal);
@@ -30,6 +34,8 @@ function App(): JSX.Element {
             >
                 <PopupAddMessage 
                     togglePopup = {toggleAddMessage}
+                    messages = {messages}
+                    setMessages = {setMessages}
                 />
             </Popup>
 
