@@ -43,7 +43,7 @@ body {
     .message__content {
         padding: 10px 15px;
         @include sizes(100%, auto);
-        @include flex(row, flex-start, flex-start);
+        @include flex(row, space-between, stretch);
         border-radius: 8px;
         margin-bottom: 15px;
         background: #e3f2fd;
@@ -60,6 +60,8 @@ body {
         }
 
         .message__info {
+            margin: 0 auto 0 0;
+
             .message__text {
                 margin-bottom: 15px;
                 font-size: 14px;
@@ -79,6 +81,10 @@ body {
                 font-size: 12px;
                 font-weight: 700;
             }
+        }
+
+        .message__btns {
+            @include flex(column, space-between, flex-end);
         }
 
         .message__line {
@@ -209,4 +215,26 @@ input {
     text-align: center;
     font-size: 16px;
     color: #757575;
+}
+
+.link {
+    font-size: 14px;
+    color: #2196f3;
+    transition: ease 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        color: #64b5f6;
+    }
+}
+
+.material-icons {
+    color: #1565c0;
+    margin-left: 5px;
+    transition: ease 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        color: #1e88e5;
+    }
 }

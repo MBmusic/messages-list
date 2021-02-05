@@ -1,9 +1,10 @@
 import React from 'react';
 import Comments from "./Comments";
 import { map } from "lodash";
+import moment from "moment";
 
 type Props = {
-    messages: Array<string>
+    messages: any
 }
 
 function Messages({ messages }: Props): JSX.Element {
@@ -24,20 +25,32 @@ function Messages({ messages }: Props): JSX.Element {
                                 <div className="message__info">
                                     <div className="message__text">
                                         <div className="message__title">
-                                            Name
+                                            {item.name}
                                         </div>
                                         <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate vitae delectus accusamus optio! Temporibus provident cupiditate odio ut magni officiis beatae, qui doloremque eveniet ullam sit, minus quae ipsam unde!
+                                            {item.message}
                                         </p>
                                     </div>
 
                                     <div className="messate__date">
-                                        14.01.2021
+                                        {moment(item.date).format('ll')}
                                     </div>
                                 </div>
-                            </div>
+                                <div className="message__btns">
+                                    <div>
+                                        <i className="tiny material-icons">edit</i>
+                                        <i className="tiny material-icons">delete</i>
+                                    </div>
 
+                                    <span className="link">
+                                        Комментировать
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            {/* 
                             <Comments />
+                            */}
                         </div>
                     )
                 }) 

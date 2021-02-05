@@ -3,6 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MessagesController } from './messages/messages.controller';
 import { MessagesService } from './messages/messages.service';
 import { Message, MessageSchema } from './messages/schemas/message.schema';
+import { CommentsController } from './comments/comments.controller';
+import { CommentsService } from './comments/comments.service';
 
 @Module({
     imports: [
@@ -16,7 +18,7 @@ import { Message, MessageSchema } from './messages/schemas/message.schema';
             },
         ]),
     ],
-    controllers: [MessagesController],
-    providers: [MessagesService],
+    controllers: [MessagesController, CommentsController],
+    providers: [MessagesService, CommentsService],
 })
 export class AppModule {}

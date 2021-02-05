@@ -26,7 +26,8 @@ function PopupAddMessage({ togglePopup, messages, setMessages }: Props): JSX.Ele
 
         API.post("/messages", {
             name: message.name,
-            message: message.message
+            message: message.message,
+            date: Date.now()
         }).then(res => setMessages((arr: any) => [...arr, res.data]));
 
         togglePopup(false);
