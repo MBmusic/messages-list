@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MessagesController } from './messages/messages.controller';
 import { MessagesService } from './messages/messages.service';
 import { Message, MessageSchema } from './messages/schemas/message.schema';
+import { Comment, CommentSchema } from "./comments/schemas/comments.schema";
 import { CommentsController } from './comments/comments.controller';
 import { CommentsService } from './comments/comments.service';
 
@@ -16,6 +17,10 @@ import { CommentsService } from './comments/comments.service';
                 name: Message.name,
                 schema: MessageSchema,
             },
+            {
+                name: Comment.name,
+                schema: CommentSchema,
+            }
         ]),
     ],
     controllers: [MessagesController, CommentsController],

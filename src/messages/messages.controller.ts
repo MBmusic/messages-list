@@ -7,7 +7,7 @@ import {
     Put,
     Body,
     HttpCode,
-    HttpStatus,
+    HttpStatus
 } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';

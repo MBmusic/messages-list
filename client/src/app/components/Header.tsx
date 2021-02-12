@@ -7,7 +7,7 @@ type Props = {
 function Header({ togglePopup }: Props): JSX.Element {
     return (
         <div className="header blue darken-1">
-            <span onClick={() => togglePopup(true)} className="waves-effect waves-light btn blue lighten-2">
+            <span onClick={() => togglePopup("add", true)} className="waves-effect waves-light btn blue lighten-2">
                 Добавить сообщение
             </span>
         </div>

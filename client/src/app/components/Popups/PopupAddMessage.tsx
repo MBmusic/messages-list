@@ -4,8 +4,7 @@ import { InputValidator } from "../../helpers/InputValidator";
 import API from "../../RequestApi";
 
 type Props = {
-    togglePopup: any,
-    messages: Array<string>,
+    togglePopup: any
     setMessages: any
 }
 
@@ -14,7 +13,7 @@ type Message =  {
     message: string
 }
 
-function PopupAddMessage({ togglePopup, messages, setMessages }: Props): JSX.Element {
+function PopupAddMessage({ togglePopup, setMessages }: Props): JSX.Element {
     const [message, setMessage] = useState<Message>({
         name: "",
         message: ""
@@ -30,7 +29,7 @@ function PopupAddMessage({ togglePopup, messages, setMessages }: Props): JSX.Ele
             date: Date.now()
         }).then(res => setMessages((arr: any) => [...arr, res.data]));
 
-        togglePopup(false);
+        togglePopup("add", false);
     }
 
     const handleChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +85,7 @@ function PopupAddMessage({ togglePopup, messages, setMessages }: Props): JSX.Ele
                         Добавить
                     </button>
 
-                    <span onClick={() => togglePopup(false)} className="waves-effect waves-light btn blue darken-2 btn--130">
+                    <span onClick={() => togglePopup("add", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
                         Отменить
                     </span>
                 </div>

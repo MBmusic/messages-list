@@ -4,10 +4,11 @@ import { map } from "lodash";
 import moment from "moment";
 
 type Props = {
-    messages: any
+    messages: any,
+    comments: any
 }
 
-function Messages({ messages }: Props): JSX.Element {
+function Messages({ messages, comments }: Props): JSX.Element {
     const renderMessage = (): any => {
         if (!messages.length) {
             return (
