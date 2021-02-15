@@ -5,10 +5,11 @@ import moment from "moment";
 
 type Props = {
     messages: any,
-    comments: any
+    comments: any,
+    togglePopup: any
 }
 
-function Messages({ messages, comments }: Props): JSX.Element {
+function Messages({ messages, comments, togglePopup }: Props): JSX.Element {
     const renderMessage = (): any => {
         if (!messages.length) {
             return (
@@ -18,11 +19,12 @@ function Messages({ messages, comments }: Props): JSX.Element {
             )
         } else {
             return (
-                map(messages, (item, i) => {
+                map([...messages].reverse(), (item, i) => {
                     return (
                         <div key={i} className="message">
                             <div className="message__content">
-                                <div className="message__avatar"></div>
+                                <div className="message__avatar" />
+
                                 <div className="message__info">
                                     <div className="message__text">
                                         <div className="message__title">
@@ -39,8 +41,8 @@ function Messages({ messages, comments }: Props): JSX.Element {
                                 </div>
                                 <div className="message__btns">
                                     <div>
-                                        <i className="tiny material-icons">edit</i>
-                                        <i className="tiny material-icons">delete</i>
+                                        <i onClick={() => togglePopup("update", true, item._id)} className="tiny material-icons">edit</i>
+                                        <i onClick={() => togglePopup("delete", true, item._id)} className="tiny material-icons">delete</i>
                                     </div>
 
                                     <span className="link">

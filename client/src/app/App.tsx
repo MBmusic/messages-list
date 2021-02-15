@@ -4,28 +4,34 @@ import Messages from "./components/Messages";
 import Popup from "./custom/Popup";
 import PopupAddMessage from "./components/Popups/PopupAddMessage";
 import PopupDeleteMessage from "./components/Popups/PopupDeleteMessage";
+import PopupUpdateMessage from "./components/Popups/PopupUpdateMessage";
 import API from "./RequestApi";
 
 type PopupTypes = {
     add: boolean,
-    delete: boolean
+    delete: boolean,
+    update: boolean
 }
 
 function App(): JSX.Element {
     const [isEventPopup, setIsEventPopup] = useState<PopupTypes>({
         add: false,
-        delete: false
+        delete: false,
+        update: false
     });
 
-    const [messages, setMessages] = useState<Array<string>>([]);
-    const [comments, setComments] = useState<Array<string>>([]);
+    const [messages, setMessages] = useState<Array<any>>([]);
+    const [comments, setComments] = useState<Array<any>>([]);
+    const [idMessage, setIdMessage] = useState<string>("");
 
     useEffect(() => {
         getAllMessages();
         getAllComments();
     }, [])
 
-    const togglePopup = (eventName: string, boolVal: boolean): void => {
+    const togglePopup = (eventName: string, boolVal: boolean, id = ""): void => {
+        setIdMessage(id);
+
         setIsEventPopup({
             ...isEventPopup,
             [eventName]: boolVal
@@ -42,6 +48,15 @@ function App(): JSX.Element {
         setComments(response.data);
     }
 
+    const deleteMessage = (): void => {
+        API.delete(`/messages/${idMessage}`).then(() => {
+            const messagesList = messages.filter(item => item._id !== idMessage);
+            setMessages(messagesList);
+        });
+
+        togglePopup("delete", false, "");
+    }
+
     return (
         <div className="wrapper">
             <Header 
@@ -51,6 +66,7 @@ function App(): JSX.Element {
             <Popup 
                 show={isEventPopup.add}
                 className="popup__modal--500"
+                popupType="add"
                 togglePopup = {togglePopup}
             >
                 <PopupAddMessage 
@@ -62,8 +78,24 @@ function App(): JSX.Element {
             <Popup
                 show={isEventPopup.delete}
                 className="popup__modal--500"
+                popupType="delete"
+                togglePopup = {togglePopup}
             >
-                <PopupDeleteMessage />
+                <PopupDeleteMessage
+                    togglePopup = {togglePopup}
+                    deleteMessage = {deleteMessage}
+                />
+            </Popup>
+
+            <Popup 
+                show={isEventPopup.update}
+                className="popup__modal--500"
+                popupType="update"
+                togglePopup = {togglePopup}
+            >
+                <PopupUpdateMessage 
+                    togglePopup = {togglePopup}
+                />
             </Popup>
 
             <div className="content">
@@ -71,6 +103,7 @@ function App(): JSX.Element {
                     <Messages 
                         messages={messages}
                         comments = {comments}
+                        togglePopup = {togglePopup}
                     />
                 </div>
             </div>

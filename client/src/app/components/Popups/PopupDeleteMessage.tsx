@@ -1,9 +1,26 @@
 import React from "react";
 
-function PopupDeleteMessage(): JSX.Element {
+type Props = {
+    togglePopup: any,
+    deleteMessage: any
+}
+
+function PopupDeleteMessage({ togglePopup, deleteMessage }: Props): JSX.Element {
     return (
         <>
-            123
+            <div className="title">
+                Вы действительно хотите удалить?
+            </div>
+
+            <div className="flex-btn">
+                <span onClick={() => deleteMessage()} className={`waves-effect waves-light btn blue darken-2 btn--130 margin-right_20`}>
+                    Удалить
+                </span>
+
+                <span onClick={() => togglePopup("delete", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
+                    Отменить
+                </span>
+            </div>
         </>
     )
 }
