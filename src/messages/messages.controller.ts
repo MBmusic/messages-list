@@ -23,6 +23,11 @@ export class MessagesController {
         return this.messagesService.getAll();
     }
 
+    @Get(':id')
+    getById(@Param('id') id: string): Promise<Message[]> {
+        return this.messagesService.getById(id);
+    }
+
     @Post()
     @HttpCode(HttpStatus.CREATED)
     addOne(@Body() addMessage: CreateMessageDto): Promise<Message> {

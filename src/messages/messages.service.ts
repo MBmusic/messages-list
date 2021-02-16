@@ -15,6 +15,12 @@ export class MessagesService {
         return this.messageModel.find().exec();
     }
 
+    async getById(id: string): Promise<Message[]> {
+        return this.messageModel.find({
+            _id: id
+        });
+    }
+
     async addOne(messageDto: CreateMessageDto): Promise<Message> {
         const newMessage = new this.messageModel(messageDto);
         return newMessage.save();

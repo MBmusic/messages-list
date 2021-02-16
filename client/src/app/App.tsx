@@ -95,6 +95,7 @@ function App(): JSX.Element {
             >
                 <PopupUpdateMessage 
                     togglePopup = {togglePopup}
+                    idMessage = {idMessage}
                 />
             </Popup>
 
