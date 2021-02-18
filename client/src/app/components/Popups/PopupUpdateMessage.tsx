@@ -67,7 +67,7 @@ function PpupUpdateMessage({ togglePopup, idMessage }: Props): JSX.Element {
                             value={message.name}
                             onChange={(e) => handleChangeField(e)}
                         />
-                        <label htmlFor="name">Имя</label>
+                        <label htmlFor="name" className={`${!isEmpty(message.name) ? "active" : ""}`}>Имя</label>
                         <span className="label__max">{message.name.length}/{maxSize}</span>
                     </div>
                 </div>
@@ -80,7 +80,7 @@ function PpupUpdateMessage({ togglePopup, idMessage }: Props): JSX.Element {
                             value={message.message}
                             onChange={(e) => handleChangeField(e)}
                         />
-                        <label htmlFor="message">Текст сообщения</label>
+                        <label htmlFor="message" className={`${!isEmpty(message.message) ? "active" : ""}`}>Текст сообщения</label>
                         <span className="label__max">{message.message.length}/{maxSize}</span>
                     </div>
                 </div>
