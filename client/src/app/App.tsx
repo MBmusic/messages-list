@@ -8,16 +8,18 @@ import PopupUpdateMessage from "./components/Popups/PopupUpdateMessage";
 import API from "./RequestApi";
 
 type PopupTypes = {
-    add: boolean,
+    [add: string]: boolean,
     delete: boolean,
-    update: boolean
+    update: boolean,
+    comment: boolean
 }
 
 function App(): JSX.Element {
     const [isEventPopup, setIsEventPopup] = useState<PopupTypes>({
         add: false,
         delete: false,
-        update: false
+        update: false,
+        comment: false
     });
 
     const [messages, setMessages] = useState<Array<any>>([]);
@@ -57,47 +59,49 @@ function App(): JSX.Element {
         togglePopup("delete", false, "");
     }
 
+    const popupChildren = () => {
+        return [
+            <PopupAddMessage 
+                togglePopup = {togglePopup} 
+                setMessages = {setMessages} 
+            />,
+            <PopupDeleteMessage 
+                togglePopup = {togglePopup}  
+                deleteMessage = {deleteMessage} 
+            />,
+            <PopupUpdateMessage  
+                togglePopup = {togglePopup} 
+                idMessage = {idMessage} 
+                messages = {messages} 
+                setMessagesMain = {setMessages} 
+            />,
+            <div>123</div>
+        ]
+    }
+
+    const renderAllPopups = () => {
+        return Object.keys(isEventPopup).map((item, index) => {
+            return (
+                <Popup 
+                    show={isEventPopup[item]}
+                    className="popup__modal--500"
+                    popupType={item}
+                    togglePopup={togglePopup}
+                    key={index}
+                >
+                    {popupChildren()[index]}
+                </Popup>
+            )
+        })
+    }
+
     return (
         <div className="wrapper">
             <Header 
                 togglePopup = {togglePopup}
             />
 
-            <Popup 
-                show={isEventPopup.add}
-                className="popup__modal--500"
-                popupType="add"
-                togglePopup = {togglePopup}
-            >
-                <PopupAddMessage 
-                    togglePopup = {togglePopup}
-                    setMessages = {setMessages}
-                />
-            </Popup>
-
-            <Popup
-                show={isEventPopup.delete}
-                className="popup__modal--500"
-                popupType="delete"
-                togglePopup = {togglePopup}
-            >
-                <PopupDeleteMessage
-                    togglePopup = {togglePopup}
-                    deleteMessage = {deleteMessage}
-                />
-            </Popup>
-
-            <Popup 
-                show={isEventPopup.update}
-                className="popup__modal--500"
-                popupType="update"
-                togglePopup = {togglePopup}
-            >
-                <PopupUpdateMessage 
-                    togglePopup = {togglePopup}
-                    idMessage = {idMessage}
-                />
-            </Popup>
+            {renderAllPopups()}
 
             <div className="content">
                 <div className="content__center">

@@ -5,7 +5,9 @@ import API from "../../RequestApi";
 
 type Props = {
     togglePopup: any,
-    idMessage: string
+    idMessage: string,
+    messages: any,
+    setMessagesMain: any
 }
 
 type Message =  {
@@ -13,7 +15,7 @@ type Message =  {
     message: string
 }
 
-function PpupUpdateMessage({ togglePopup, idMessage }: Props): JSX.Element {
+function PpupUpdateMessage({ togglePopup, idMessage, messages, setMessagesMain }: Props): JSX.Element {
     const [message, setMessage] = useState<Message>({
         name: "",
         message: ""
@@ -24,8 +26,18 @@ function PpupUpdateMessage({ togglePopup, idMessage }: Props): JSX.Element {
         getMessageData();
     }, []);
 
-    const updateMessage = (): void => {
+    const updateMessage = (e: React.FormEvent): void => {
+        e.preventDefault();
 
+        API.put(`/messages/${idMessage}`, {
+            name: message.name,
+            message: message.message
+        }).then(() => {
+            const res = messages.map(item => item._id === idMessage ? { name: message.name, message: message.message } : item);
+            
+            setMessagesMain(res);
+            togglePopup("update", false)
+        });
     }
 
     const getMessageData = async () => {
@@ -87,7 +99,7 @@ function PpupUpdateMessage({ togglePopup, idMessage }: Props): JSX.Element {
 
                 <div className="flex-btn">
                     <button className={`waves-effect waves-light btn blue darken-2 btn--130 margin-right_20 ${isEmpty(toggleActiveBtn()) ? "" : "disabled"}`}>
-                        Удалить
+                        Изменить
                     </button>
 
                     <span onClick={() => togglePopup("update", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
