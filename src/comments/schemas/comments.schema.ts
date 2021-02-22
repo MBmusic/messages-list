@@ -6,6 +6,9 @@ export type CommentDocument = Comment & Document;
 @Schema()
 export class Comment {
     @Prop()
+    message_id: string;
+
+    @Prop()
     name: string;
 
     @Prop()

@@ -22,4 +22,10 @@ export class CommentsService {
     async deleteOne(id: string): Promise<Comment> {
         return this.commentModel.findByIdAndRemove(id);
     }
+
+    async deleteAllById(id: string): Promise<Comment> {
+        return this.commentModel.remove({
+            message_id: id
+        });
+    }
 }

@@ -36,7 +36,7 @@ function PpupUpdateMessage({ togglePopup, idMessage, messages, setMessagesMain }
             const res = messages.map(item => item._id === idMessage ? { name: message.name, message: message.message } : item);
             
             setMessagesMain(res);
-            togglePopup("update", false)
+            togglePopup("updateMessage", false)
         });
     }
 
@@ -102,7 +102,7 @@ function PpupUpdateMessage({ togglePopup, idMessage, messages, setMessagesMain }
                         Изменить
                     </button>
 
-                    <span onClick={() => togglePopup("update", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
+                    <span onClick={() => togglePopup("updateMessage", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
                         Отменить
                     </span>
                 </div>

@@ -4,79 +4,82 @@ import { InputValidator } from "../../helpers/InputValidator";
 import API from "../../RequestApi";
 
 type Props = {
-    togglePopup: any
-    setMessages: any
+    idMessage: string
+    togglePopup: any,
+    setComments: any
 }
 
-type Message =  {
+type Comment =  {
     name: string,
-    message: string
+    comment: string
 }
 
-function PopupAddMessage({ togglePopup, setMessages }: Props): JSX.Element {
-    const [message, setMessage] = useState<Message>({
+function PopupAddComment({ idMessage, togglePopup, setComments }: Props) {
+    const [comment, setComment] = useState<Comment>({
         name: "",
-        message: ""
+        comment: ""
     });
     const maxSize = 50;
 
-    const addMessage = (e: React.FormEvent): void => {
+    const addComment = (e: React.FormEvent): void => {
         e.preventDefault();
 
-        API.post("/messages", {
-            name: message.name,
-            message: message.message,
+        API.post("/comments", {
+            message_id: idMessage,
+            name: comment.name,
+            comment: comment.comment,
             date: Date.now()
-        }).then(res => setMessages((arr: any) => [...arr, res.data]));
+        }).then(res => setComments((arr: any) => [...arr, res.data]));
 
-        togglePopup("addMessage", false);
+        togglePopup("addComment", false);
     }
 
     const handleChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
         const targ = e.target;
 
-        setMessage(prevValue => {
+        setComment(prevValue => {
             return {
-                ...message,
-                [targ.id]: InputValidator(prevValue[targ.id as keyof Message], targ.value, maxSize)
+                ...comment,
+                [targ.id]: InputValidator(prevValue[targ.id as keyof Comment], targ.value, maxSize)
             };
         });
     }
 
     const toggleActiveBtn = (): any => {
-        return Object.values(message).filter(item => isEmpty(item));
+        return Object.values(comment).filter(item => isEmpty(item));
     }
 
     return (
         <>
             <div className="title">
-                Добавить сообщение
+                Добавить комментарий
             </div>
 
-            <form onSubmit={ addMessage }>
+            <form onSubmit={ addComment }>
                 <div className="label">
                     <div className="input-field col s6">
                         <input 
                             id="name" 
                             type="text"
-                            value={message.name}
+                            value={comment.name}
                             onChange={(e) => handleChangeField(e)}
+                            
                         />
                         <label htmlFor="name">Имя</label>
-                        <span className="label__max">{message.name.length}/{maxSize}</span>
+                        <span className="label__max">{comment.name.length}/{maxSize}</span>
                     </div>
                 </div>
 
                 <div className="label margin-bottom_30">
                     <div className="input-field col s6">
                         <input 
-                            id="message" 
+                            id="comment" 
                             type="text"
-                            value={message.message}
+                            value={comment.comment}
                             onChange={(e) => handleChangeField(e)}
                         />
-                        <label htmlFor="message">Текст сообщения</label>
-                        <span className="label__max">{message.message.length}/{maxSize}</span>
+                        <label htmlFor="comment">Комментарий</label>
+                        <span className="label__max">{comment.comment.length}/{maxSize}</span>
                     </div>
                 </div>
 
@@ -85,7 +88,7 @@ function PopupAddMessage({ togglePopup, setMessages }: Props): JSX.Element {
                         Добавить
                     </button>
 
-                    <span onClick={() => togglePopup("addMessage", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
+                    <span onClick={() => togglePopup("addComment", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
                         Отменить
                     </span>
                 </div>
@@ -94,4 +97,4 @@ function PopupAddMessage({ togglePopup, setMessages }: Props): JSX.Element {
     )
 }
 
-export default PopupAddMessage;
+export default PopupAddComment;

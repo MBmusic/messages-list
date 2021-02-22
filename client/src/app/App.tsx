@@ -5,21 +5,24 @@ import Popup from "./custom/Popup";
 import PopupAddMessage from "./components/Popups/PopupAddMessage";
 import PopupDeleteMessage from "./components/Popups/PopupDeleteMessage";
 import PopupUpdateMessage from "./components/Popups/PopupUpdateMessage";
+import PopupAddComment from "./components/Popups/PopupAddComment";
 import API from "./RequestApi";
 
 type PopupTypes = {
-    [add: string]: boolean,
-    delete: boolean,
-    update: boolean,
-    comment: boolean
+    [addMessage: string]: boolean,
+    deleteMessage: boolean,
+    updateMessage: boolean,
+    addComment: boolean,
+    deleteComment: boolean
 }
 
 function App(): JSX.Element {
     const [isEventPopup, setIsEventPopup] = useState<PopupTypes>({
-        add: false,
-        delete: false,
-        update: false,
-        comment: false
+        addMessage: false,
+        deleteMessage: false,
+        updateMessage: false,
+        addComment: false,
+        deleteComment: false
     });
 
     const [messages, setMessages] = useState<Array<any>>([]);
@@ -53,10 +56,19 @@ function App(): JSX.Element {
     const deleteMessage = (): void => {
         API.delete(`/messages/${idMessage}`).then(() => {
             const messagesList = messages.filter(item => item._id !== idMessage);
+            API.delete(`/comments/message/${idMessage}`);
+
             setMessages(messagesList);
         });
 
-        togglePopup("delete", false, "");
+        togglePopup("deleteMessage", false, "");
+    }
+
+    const deleteComment = (idComment): void => {
+        API.delete(`/comments/${idComment}`).then(() => {
+            const commentsList = comments.filter(item => item._id !== idComment);
+            setComments(commentsList);
+        });
     }
 
     const popupChildren = () => {
@@ -75,7 +87,11 @@ function App(): JSX.Element {
                 messages = {messages} 
                 setMessagesMain = {setMessages} 
             />,
-            <div>123</div>
+            <PopupAddComment 
+                idMessage = {idMessage} 
+                togglePopup = {togglePopup} 
+                setComments = {setComments}
+            />
         ]
     }
 
@@ -109,6 +125,7 @@ function App(): JSX.Element {
                         messages={messages}
                         comments = {comments}
                         togglePopup = {togglePopup}
+                        deleteComment = {deleteComment}
                     />
                 </div>
             </div>

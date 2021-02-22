@@ -17,7 +17,7 @@ function PopupDeleteMessage({ togglePopup, deleteMessage }: Props): JSX.Element 
                     Удалить
                 </span>
 
-                <span onClick={() => togglePopup("delete", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
+                <span onClick={() => togglePopup("deleteMessage", false)} className="waves-effect waves-light btn blue darken-2 btn--130">
                     Отменить
                 </span>
             </div>

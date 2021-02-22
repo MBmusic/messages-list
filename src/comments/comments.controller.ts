@@ -31,4 +31,9 @@ export class CommentsController {
     deleteOne(@Param('id') id: string): Promise<Comment> {
         return this.commentsService.deleteOne(id);
     }
+
+    @Delete('message/:id')
+    deleteAllById(@Param('id') id: string): Promise<Comment> {
+        return this.commentsService.deleteAllById(id);
+    }
 }

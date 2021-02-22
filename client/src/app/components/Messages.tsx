@@ -6,10 +6,23 @@ import moment from "moment";
 type Props = {
     messages: any,
     comments: any,
-    togglePopup: any
+    togglePopup: any,
+    deleteComment: any
 }
 
-function Messages({ messages, comments, togglePopup }: Props): JSX.Element {
+function Messages({ messages, comments, togglePopup, deleteComment }: Props): JSX.Element {
+    const renderComments = (id): any => {
+        return map(comments, (comment, i) => {
+            if (id === comment.message_id) {
+                return <Comments 
+                    key={i}
+                    {...comment}
+                    deleteComment={deleteComment}
+                />;
+            }
+        })
+    }
+
     const renderMessage = (): any => {
         if (!messages.length) {
             return (
@@ -19,7 +32,7 @@ function Messages({ messages, comments, togglePopup }: Props): JSX.Element {
             )
         } else {
             return (
-                map([...messages].reverse(), (item, i) => {
+                map([...messages].reverse(), (message, i) => {
                     return (
                         <div key={i} className="message">
                             <div className="message__content">
@@ -28,32 +41,32 @@ function Messages({ messages, comments, togglePopup }: Props): JSX.Element {
                                 <div className="message__info">
                                     <div className="message__text">
                                         <div className="message__title">
-                                            {item.name}
+                                            {message.name}
                                         </div>
                                         <p>
-                                            {item.message}
+                                            {message.message}
                                         </p>
                                     </div>
 
                                     <div className="messate__date">
-                                        {moment(item.date).format('ll')}
+                                        {moment(message.date).format('ll')}
                                     </div>
                                 </div>
                                 <div className="message__btns">
                                     <div>
-                                        <i onClick={() => togglePopup("update", true, item._id)} className="tiny material-icons">edit</i>
-                                        <i onClick={() => togglePopup("delete", true, item._id)} className="tiny material-icons">delete</i>
+                                        <i onClick={() => togglePopup("updateMessage", true, message._id)} className="tiny material-icons">edit</i>
+                                        <i onClick={() => togglePopup("deleteMessage", true, message._id)} className="tiny material-icons">delete</i>
                                     </div>
 
-                                    <span className="link">
+                                    <span className="link" onClick={() => togglePopup("addComment", true, message._id)}>
                                         Комментировать
                                     </span>
                                 </div>
                             </div>
-                            
-                            {/* 
-                            <Comments />
-                            */}
+                             
+                            <div className="comments">
+                                {renderComments(message._id)}
+                            </div>
                         </div>
                     )
                 }) 
