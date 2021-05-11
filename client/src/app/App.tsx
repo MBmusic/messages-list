@@ -1,3 +1,5 @@
+// New version
+
 import React, { useState, useEffect } from 'react';
 import Header from "./components/Header";
 import Messages from "./components/Messages";
